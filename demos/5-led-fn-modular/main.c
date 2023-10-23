@@ -54,8 +54,8 @@ void secondUpdate()  // called every 1/250 sec to call oncePerSecond once per se
 
 void timeAdvStateMachines() // called every 1/250 sec
 {
-  blinkUpdate();
-  secondUpdate();
+  blinkUpdate(); /* Blink LED */
+  secondUpdate(); /* Update the second counter */
 }
 
 
