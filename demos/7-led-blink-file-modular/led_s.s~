@@ -1,0 +1,50 @@
+	.arch msp430g2553
+	.p2align 1,0
+
+	.data 			;Initializes variables
+	
+led_changed:
+	.word 0
+red_on:
+	.word 0
+green_on:
+	.word 0
+redVal:
+	.word 0
+	.word 64
+greenVal:
+	.word 0
+	.word 0
+ledFlags:
+	.word 0
+	
+	.text
+	.global led_init
+	.global led_update
+	.extern P1DIR
+	.extern P1OUT
+
+led_init:
+	bis #65, PDIR
+	mov #1, led_changed
+	jmp led_update
+	pop r0
+
+led_update:
+	cmp #0, led_changed
+	jz update
+
+	pop r0
+
+update:	
+	mov red_on(redVal), ledFlags
+	bis green_on(greenVal), ledFlags
+
+	mov #255, r4
+	xor #65, r4
+	bis ledFlags, r4
+	and r4, P1OUT
+	bis ledFlags, P1OUT
+	mov #0, led_changed
+	pop r0
+	
