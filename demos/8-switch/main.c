@@ -34,11 +34,14 @@ switch_interrupt_handler()
 
 /* up=red, down=green */
   if (p1val & SW1) {
-    P1OUT |= LED_RED;
-    P1OUT &= ~LED_GREEN;
-  } else {
-    P1OUT |= LED_GREEN;
-    P1OUT &= ~LED_RED;
+  } else { /* when button is down */
+    if (P1OUT & LED_RED == 1){ /* if the red LED is on */
+      P1OUT |= LED_GREEN; /* turn on green LED */
+      P1OUT &= ~LED_RED; /* turn off red LED */
+    } else {
+      P1OUT |= LED_RED;
+      P1OUT &= ~LED_GREEN;
+    }
   }
 }
 
